@@ -1,0 +1,22 @@
+{
+  "name": "travel-agent",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive test/unit",
+    "test:all": "mocha --recursive test",
+    "pkg": "zip ../alexa-travel-agent.zip * -r"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ask-sdk-runtime": "^2.4.0",
+    "superagent": "^4.1.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "sinon": "^7.2.7"
+  }
+}

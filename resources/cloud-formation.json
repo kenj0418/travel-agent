@@ -1,0 +1,152 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+
+  "Description": "Travel Agent Alexa Skill and accompanying resources",
+
+  "Parameters": {
+    "VendorId": {
+      "Type": "String",
+      "Description": "Amazon Developer Vendor ID"
+    },
+    "SkillBucket": {
+      "Type": "String",
+      "Description": "S3 Bucket for Alexa Skill Package"
+    },
+    "SkillKey": {
+      "Type": "String",
+      "Description": "S3 Key for Alexa Skill Package"
+    },
+    "LambdaBucket": {
+      "Type": "String",
+      "Description": "S3 Bucket for Alexa Skill Lambda"
+    },
+    "LambdaKey": {
+      "Type": "String",
+      "Description": "S3 Key for Alexa Skill Lambda"
+    },
+    "AlexaClientId": {
+      "Type": "String"
+    },
+    "AlexaClientSecret": {
+      "Type": "String",
+      "NoEcho": true
+    },
+    "AlexaRefreshToken": {
+      "Type": "String",
+      "NoEcho": true
+    }
+  },
+
+  "Resources": {
+    "LambdaRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": ["lambda.amazonaws.com"]
+              },
+              "Action": ["sts:AssumeRole"]
+            }
+          ]
+        },
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "CloudWatchLogsAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "AllowLogging",
+                  "Effect": "Allow",
+                  "Action": [
+                    "logs:CreateLogGroup",
+                    "logs:CreateLogStream",
+                    "logs:PutLogEvents"
+                  ],
+                  "Resource": ["*"]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+
+    "SkillBucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": { "Ref": "SkillBucket" },
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "alexa-appkit.amazon.com"
+              },
+              "Action": ["s3:GetObject"],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  ["arn:aws:s3:::", { "Ref": "SkillBucket" }, "/*"]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+
+    "TravelAgentLambda": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Handler": "index.hello",
+        "Role": {
+          "Fn::GetAtt": ["LambdaRole", "Arn"]
+        },
+        "Description": "Alexa Skill code for the Travel Agent Skill",
+        "Code": {
+          "S3Bucket": {
+            "Ref": "LambdaBucket"
+          },
+          "S3Key": {
+            "Ref": "LambdaKey"
+          }
+        },
+        "Runtime": "nodejs8.10",
+        "Timeout": "60"
+      }
+    },
+
+    "AlexaSkillFunctionPermissions": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Ref": "TravelAgentLambda"
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "alexa-appkit.amazon.com"
+      }
+    },
+
+    "TravelAgentSkill": {
+      "Type": "Alexa::ASK::Skill",
+      "Properties": {
+        "VendorId": { "Ref": "VendorId" },
+        "AuthenticationConfiguration": {
+          "ClientId": { "Ref": "AlexaClientId" },
+          "ClientSecret": { "Ref": "AlexaClientSecret" },
+          "RefreshToken": { "Ref": "AlexaRefreshToken" }
+        },
+        "SkillPackage": {
+          "S3Bucket": { "Ref": "SkillBucket" },
+          "S3Key": { "Ref": "SkillKey" }
+        }
+      }
+    }
+  }
+}

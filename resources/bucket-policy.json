@@ -1,0 +1,14 @@
+{
+  "Id": "Policy1552776185920",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "alexa-appkit.amazon.com"
+      },
+      "Action": ["s3:GetObject"],
+      "Resource": ["arn:aws:s3:::kenj0418-alexa-travel-agent/*"]
+    }
+  ]
+}
