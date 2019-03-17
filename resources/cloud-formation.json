@@ -15,6 +15,9 @@
     "LambdaKey": {
       "Type": "String",
       "Description": "S3 Key for Alexa Skill Lambda"
+    },
+    "RapidAPIKey": {
+      "Type": "String"
     }
   },
 
@@ -85,7 +88,7 @@
     "TravelAgentLambda": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
-        "Handler": "index.hello.handler",
+        "Handler": "lib/alexa/travelAgent.handler",
         "Role": {
           "Fn::GetAtt": ["LambdaRole", "Arn"]
         },
@@ -99,7 +102,10 @@
           }
         },
         "Runtime": "nodejs8.10",
-        "Timeout": "31"
+        "Timeout": "31",
+        "Environment": {
+          "Variables": { "RAPID_API_KEY": { "Ref": "RapidAPIKey" } }
+        }
       }
     },
 

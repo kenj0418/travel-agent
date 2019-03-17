@@ -1,5 +1,4 @@
 #TODO Modify this and setup in code-build instead
-#todo split lambda and skill into separate projects
 
 npm prune --production
 zip ../alexa-travel-agent.zip * -r

@@ -17,6 +17,9 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "mocha": "^6.0.2",
-    "sinon": "^7.2.7"
+    "random-number": "0.0.9",
+    "random-string": "^0.2.0",
+    "sinon": "^7.2.7",
+    "virtual-alexa": "^0.7.2"
   }
 }
