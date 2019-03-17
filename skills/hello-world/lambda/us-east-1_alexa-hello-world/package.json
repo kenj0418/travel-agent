@@ -1,0 +1,16 @@
+{
+  "name": "helloworld",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pkg": "zip ../alexa-hello-world.zip * -r"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-sdk": "^1.0.25",
+    "superagent": "^4.1.0"
+  }
+}

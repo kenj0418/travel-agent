@@ -3,7 +3,8 @@
     "apis": {
       "custom": {
         "endpoint": {
-          "uri": "arn:aws:lambda:us-east-1:376144559074:function:alexa-travel-agent-TravelAgentLambda-16TP3I0ZKN1W3"
+          "uri": "alexa-hello-world",
+          "sourceDir": "lambda/us-east-1_alexa-hello-world"
         },
         "interfaces": []
       }
@@ -12,7 +13,7 @@
     "publishingInformation": {
       "locales": {
         "en-US": {
-          "name": "travel-agent"
+          "name": "hello-world"
         }
       }
     }

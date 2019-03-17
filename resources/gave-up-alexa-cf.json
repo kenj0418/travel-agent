@@ -1,0 +1,17 @@
+{
+  "TravelAgentSkill": {
+    "Type": "Alexa::ASK::Skill",
+    "Properties": {
+      "VendorId": { "Ref": "VendorId" },
+      "AuthenticationConfiguration": {
+        "ClientId": { "Ref": "AlexaClientId" },
+        "ClientSecret": { "Ref": "AlexaClientSecret" },
+        "RefreshToken": { "Ref": "AlexaRefreshToken" }
+      },
+      "SkillPackage": {
+        "S3Bucket": { "Ref": "SkillBucket" },
+        "S3Key": { "Ref": "SkillKey" }
+      }
+    }
+  }
+}

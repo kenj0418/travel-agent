@@ -1,7 +1,7 @@
 {
   "interactionModel": {
     "languageModel": {
-      "invocationName": "travel agent",
+      "invocationName": "ken test one",
       "intents": [
         {
           "name": "AMAZON.FallbackIntent",

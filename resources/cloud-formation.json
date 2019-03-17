@@ -4,17 +4,9 @@
   "Description": "Travel Agent Alexa Skill and accompanying resources",
 
   "Parameters": {
-    "VendorId": {
-      "Type": "String",
-      "Description": "Amazon Developer Vendor ID"
-    },
     "SkillBucket": {
       "Type": "String",
       "Description": "S3 Bucket for Alexa Skill Package"
-    },
-    "SkillKey": {
-      "Type": "String",
-      "Description": "S3 Key for Alexa Skill Package"
     },
     "LambdaBucket": {
       "Type": "String",
@@ -23,17 +15,6 @@
     "LambdaKey": {
       "Type": "String",
       "Description": "S3 Key for Alexa Skill Lambda"
-    },
-    "AlexaClientId": {
-      "Type": "String"
-    },
-    "AlexaClientSecret": {
-      "Type": "String",
-      "NoEcho": true
-    },
-    "AlexaRefreshToken": {
-      "Type": "String",
-      "NoEcho": true
     }
   },
 
@@ -104,7 +85,7 @@
     "TravelAgentLambda": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
-        "Handler": "index.hello",
+        "Handler": "index.hello.handler",
         "Role": {
           "Fn::GetAtt": ["LambdaRole", "Arn"]
         },
@@ -118,7 +99,7 @@
           }
         },
         "Runtime": "nodejs8.10",
-        "Timeout": "60"
+        "Timeout": "31"
       }
     },
 
@@ -130,22 +111,6 @@
         },
         "Action": "lambda:InvokeFunction",
         "Principal": "alexa-appkit.amazon.com"
-      }
-    },
-
-    "TravelAgentSkill": {
-      "Type": "Alexa::ASK::Skill",
-      "Properties": {
-        "VendorId": { "Ref": "VendorId" },
-        "AuthenticationConfiguration": {
-          "ClientId": { "Ref": "AlexaClientId" },
-          "ClientSecret": { "Ref": "AlexaClientSecret" },
-          "RefreshToken": { "Ref": "AlexaRefreshToken" }
-        },
-        "SkillPackage": {
-          "S3Bucket": { "Ref": "SkillBucket" },
-          "S3Key": { "Ref": "SkillKey" }
-        }
       }
     }
   }
