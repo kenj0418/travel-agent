@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "alexa-sdk": "^1.0.25",
+    "ask-sdk": "^2.5.1",
     "superagent": "^4.1.0"
   },
   "devDependencies": {
