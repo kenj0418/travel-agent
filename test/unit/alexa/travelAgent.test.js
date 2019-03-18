@@ -27,21 +27,48 @@ describe("travelAgent alexa handler", () => {
     mockGetRoutes.restore()
   })
 
-  xit("Startup, Intro", async () => {
+  it("Startup, Intro", async () => {
     let reply = await alexa.launch()
-    expect(reply.response.outputSpeech.ssml).to.include.string(
-      "Welcome to Travel Agent"
+    let replySSML = reply.response.outputSpeech.ssml
+    expect(replySSML).to.include.string("Welcome to Travel Agent")
+    expect(replySSML).to.include.string(
+      "I can help with locating air travel prices."
     )
-    expect(reply.response.outputSpeech.ssml).to.include.string(
+    expect(replySSML).to.include.string(
       "Ask for help at any time for assistance"
     )
-    expect(reply.response.outputSpeech.ssml).to.include.string(
-      "look up flight costs"
+    expect(replySSML).to.include.string("What would you like to know?")
+  })
+
+  xit("Startup, Returning User")
+
+  it("Help", async () => {
+    await alexa.launch()
+
+    const helpReply = await alexa.utter("Help")
+    let replySSML = helpReply.response.outputSpeech.ssml
+    expect(replySSML).to.include("You can say")
+    expect(replySSML).to.include("How much is a flight to Chicago")
+    expect(replySSML).to.include(
+      "Are there any non-stop flights from Orlando to Seatle"
     )
   })
 
-  xit("Help")
-  xit("Stop")
+  it("Stop", async () => {
+    await alexa.launch()
+    const stopReply = await alexa.utter("Stop")
+    let replySSML = stopReply.response.outputSpeech.ssml
+    expect(replySSML).to.include("Goodbye")
+  })
+
+  it("Cancel", async () => {
+    await alexa.launch()
+    const cancelReply = await alexa.utter("Cancel")
+    let replySSML = cancelReply.response.outputSpeech.ssml
+    expect(replySSML).to.include("Goodbye")
+  })
+
+  it("Both cities and date specified", async () => {})
 
   xit("No routes", async function() {
     mockGetRoutes.returns([])

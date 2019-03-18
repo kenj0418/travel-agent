@@ -8,7 +8,7 @@ describe("fightServices integration tests", function() {
     return new Date().toISOString().split("T")[0]
   }
 
-  it("invalid airports throws error", async () => {
+  xit("invalid airports throws error", async () => {
     let exceptionThrown = false
     try {
       await flightServices.getRoutesForPairAndDate("KJJ", "TST", tomorrow())
@@ -18,7 +18,7 @@ describe("fightServices integration tests", function() {
     expect(exceptionThrown).to.equal(true)
   })
 
-  it("STL-ORD has routes for tomorrow", async () => {
+  xit("STL-ORD has routes for tomorrow", async () => {
     const routes = await flightServices.getRoutesForPairAndDate(
       "STL",
       "ORD",
@@ -26,5 +26,15 @@ describe("fightServices integration tests", function() {
     )
     expect(routes).to.exist
     expect(routes.length).to.be.at.least(1)
+  })
+
+  it("Chicago Airports", async () => {
+    const airports = await flightServices.getAirportsForCity("Chicago")
+    expect(airports).to.exist
+    const airportNames = airports.map((airport) => {
+      return airport.PlaceName
+    })
+    expect(airportNames).to.contain("Chicago Midway")
+    expect(airportNames).to.contain("Chicago O'Hare International")
   })
 })
