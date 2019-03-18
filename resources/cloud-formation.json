@@ -40,6 +40,20 @@
         "Path": "/",
         "Policies": [
           {
+            "PolicyName": "DynamoDb",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Sid": "TravelAgentDynamoDb",
+                  "Effect": "Allow",
+                  "Action": ["dynamodb:*"],
+                  "Resource": ["arn:aws:dynamodb:*:*:table/TravelAgentUserInfo"]
+                }
+              ]
+            }
+          },
+          {
             "PolicyName": "CloudWatchLogsAccess",
             "PolicyDocument": {
               "Version": "2012-10-17",
