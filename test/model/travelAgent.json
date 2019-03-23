@@ -24,12 +24,37 @@
           "samples": []
         },
         {
-          "name": "WhatDidILearnIntent",
-          "slots": [],
+          "name": "CityInfoIntent",
+          "slots": [
+            {
+              "name": "city",
+              "type": "AMAZON.AdministrativeArea"
+            }
+          ],
           "samples": [
-            "Did I learn something",
-            "What have I learned",
-            "What did I learn"
+            "Tell me about {city}",
+            "Show me {city}",
+            "Info on {city}",
+            "I'd like to know about {city}",
+            "What does {city} look like",
+            "What is {city} like"
+          ]
+        },
+        {
+          "name": "PriceFlightIntent",
+          "slots": [
+            {
+              "name": "startingCity",
+              "type": "AMAZON.US_CITY"
+            },
+            {
+              "name": "endingCity",
+              "type": "AMAZON.US_CITY"
+            }
+          ],
+          "samples": [
+            "How much is a flight from {startingCity} to {endingCity}",
+            "How much is a flight to {endingCity}"
           ]
         }
       ],
