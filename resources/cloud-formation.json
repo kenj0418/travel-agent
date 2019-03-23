@@ -18,6 +18,9 @@
     },
     "RapidAPIKey": {
       "Type": "String"
+    },
+    "GoolgePlaceAPIKey": {
+      "Type": "String"
     }
   },
 
@@ -116,9 +119,13 @@
           }
         },
         "Runtime": "nodejs8.10",
-        "Timeout": "31",
+        "Timeout": 60,
+        "MemorySize": 1024,
         "Environment": {
-          "Variables": { "RAPID_API_KEY": { "Ref": "RapidAPIKey" } }
+          "Variables": {
+            "RAPID_API_KEY": { "Ref": "RapidAPIKey" },
+            "GOOGLE_PLACES_API_KEY": { "Ref": "GoolgePlaceAPIKey" }
+          }
         }
       }
     },

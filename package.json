@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "ask-sdk": "^2.5.1",
     "superagent": "^4.1.0"
   },
